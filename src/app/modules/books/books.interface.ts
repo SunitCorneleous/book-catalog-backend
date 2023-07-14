@@ -23,6 +23,7 @@ export type IBook = {
   genre: IGenre;
   publicationDate: string;
   image?: string;
+  reviews?: string[];
 };
 
 export type IBookModel = Model<IBook, object>;

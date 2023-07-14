@@ -24,6 +24,9 @@ const bookSchema = new Schema<IBook>(
     image: {
       type: String,
     },
+    reviews: {
+      type: Array,
+    },
   },
   {
     timestamps: true,
