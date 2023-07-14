@@ -2,6 +2,7 @@ import express, { Application, NextFunction, Request, Response } from 'express';
 import cors from 'cors';
 import httpStatus from 'http-status';
 import cookieParser from 'cookie-parser';
+import routes from './app/routes/index';
 const app: Application = express();
 
 app.use(cors());
@@ -12,9 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // TODO: add all routes here
-app.use('/api/v1/', (req, res) => {
-  res.send({ message: 'api is working' });
-});
+app.use('/api/v1/', routes);
 
 // ** for testing home rote
 app.get('/', (req: Request, res: Response) => {
