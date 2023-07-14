@@ -18,6 +18,10 @@ const getAllBooksFromDB = async (): Promise<IBook[]> => {
 const getSingleBookFromDB = async (id: string): Promise<IBook | null> => {
   const result = await Book.findById(id);
 
+  if (!result) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Book does not exists!');
+  }
+
   return result;
 };
 
@@ -30,7 +34,7 @@ const updateBookInDB = async (
   });
 
   if (!isBookExists) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Cow does not exists!');
+    throw new ApiError(httpStatus.NOT_FOUND, 'Book does not exists!');
   }
 
   const result = await Book.findOneAndUpdate({ _id: id }, bookData, {
@@ -40,9 +44,24 @@ const updateBookInDB = async (
   return result;
 };
 
+const deleteBookFromDB = async (id: string): Promise<IBook | null> => {
+  const isBookExists = await Book.findOne({
+    _id: id,
+  });
+
+  if (!isBookExists) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Book does not exists!');
+  }
+
+  const result = await Book.findByIdAndDelete(id);
+
+  return result;
+};
+
 export const BookServices = {
   createNewBookToDB,
   getAllBooksFromDB,
   getSingleBookFromDB,
   updateBookInDB,
+  deleteBookFromDB,
 };
