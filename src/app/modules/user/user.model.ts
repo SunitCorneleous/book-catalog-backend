@@ -46,24 +46,22 @@ userSchema.pre('save', async function (next) {
 });
 
 // static method to check if user exists
-/* userSchema.static(
-  'isUserExists',
-  async function isUserExists(phoneNumber: string) {
-    return await User.findOne(
-      {
-        phoneNumber,
-      },
-      {
-        phoneNumber: 1,
-        password: 1,
-        role: 1,
-      }
-    );
-  }
-); */
+userSchema.static('isUserExists', async function isUserExists(email: string) {
+  return await User.findOne(
+    {
+      email,
+    },
+    {
+      password: 1,
+      name: 1,
+      email: 1,
+      _id: 1,
+    }
+  );
+});
 
 // static method to check if password match
-/* userSchema.static(
+userSchema.static(
   'isPasswordMatched',
   async function isPasswordMatched(
     givenPassword: string,
@@ -71,6 +69,6 @@ userSchema.pre('save', async function (next) {
   ) {
     return await bcrypt.compare(givenPassword, savedPassword);
   }
-); */
+);
 
 export const User = model<IUser, IUserModel>('User', userSchema);
