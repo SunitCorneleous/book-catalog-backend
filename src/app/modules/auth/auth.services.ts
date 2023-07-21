@@ -69,14 +69,21 @@ const logInUserFromDB = async (
     user: {
       email,
       name,
+      _id,
     },
   };
 };
 
 const logInUsingTokenFromDB = async (email: string) => {
-  const result = await User.findOne({
-    email: email,
-  });
+  const result = await User.findOne(
+    {
+      email: email,
+    },
+    {
+      name: 1,
+      email: 1,
+    }
+  );
 
   return result;
 };
