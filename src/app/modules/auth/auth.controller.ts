@@ -6,6 +6,7 @@ import catchAsync from '../../../shared/catchAsync';
 import { Request, Response } from 'express';
 import config from '../../../config';
 import { IGenericLoginResponse } from '../../../interface/common';
+import { JwtPayload } from 'jsonwebtoken';
 
 const signUpUser = catchAsync(async (req: Request, res: Response) => {
   const userData = req.body;
@@ -43,7 +44,23 @@ const loginUser = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const logInUsingAccessToken = catchAsync(
+  async (req: Request, res: Response) => {
+    const { email } = req.user as JwtPayload;
+
+    const result = await AuthServices.logInUsingTokenFromDB(email);
+
+    sendResponse<IUser>(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: 'User got successfully',
+      data: result,
+    });
+  }
+);
+
 export const AuthController = {
   signUpUser,
   loginUser,
+  logInUsingAccessToken,
 };

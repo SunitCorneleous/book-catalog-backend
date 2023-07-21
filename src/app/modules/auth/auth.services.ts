@@ -66,10 +66,23 @@ const logInUserFromDB = async (
   return {
     accessToken,
     refreshToken,
+    user: {
+      email,
+      name,
+    },
   };
+};
+
+const logInUsingTokenFromDB = async (email: string) => {
+  const result = await User.findOne({
+    email: email,
+  });
+
+  return result;
 };
 
 export const AuthServices = {
   signUpUserToDB,
   logInUserFromDB,
+  logInUsingTokenFromDB,
 };

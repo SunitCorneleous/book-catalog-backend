@@ -6,4 +6,8 @@ export type IGenericLoginData = {
 export type IGenericLoginResponse = {
   accessToken: string;
   refreshToken?: string;
+  user?: {
+    email?: string;
+    name?: string;
+  };
 };
