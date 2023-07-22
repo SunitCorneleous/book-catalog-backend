@@ -1,9 +1,10 @@
 import express from 'express';
 import { BookController } from './books.controller';
+import auth from '../../middlewares/auth';
 
 const router = express.Router();
 
-router.post('/add-book', BookController.createBook);
+router.post('/add-book', auth(), BookController.createBook);
 
 router.get('/', BookController.getBooks);
 
