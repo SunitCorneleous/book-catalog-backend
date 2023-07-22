@@ -7,6 +7,13 @@ const createNewReviewToDB = async (payload: IReview) => {
   return result;
 };
 
+const getReviewByIdFromDB = async (id: string) => {
+  const result = await Review.find({ bookId: id });
+
+  return result;
+};
+
 export const reviewServices = {
   createNewReviewToDB,
+  getReviewByIdFromDB,
 };

@@ -6,4 +6,6 @@ const router = express.Router();
 
 router.post('/', auth(), reviewController.createReview);
 
+router.get('/:id', auth(), reviewController.getReview);
+
 export const ReviewRoutes = router;

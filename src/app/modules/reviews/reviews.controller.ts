@@ -18,6 +18,20 @@ const createReview = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getReview = catchAsync(async (req: Request, res: Response) => {
+  const { id } = req.params;
+
+  const result = await reviewServices.getReviewByIdFromDB(id);
+
+  sendResponse<IReview[]>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Review posted successfully',
+    data: result,
+  });
+});
+
 export const reviewController = {
   createReview,
+  getReview,
 };
