@@ -8,7 +8,7 @@ const createNewReviewToDB = async (payload: IReview) => {
 };
 
 const getReviewByIdFromDB = async (id: string) => {
-  const result = await Review.find({ bookId: id });
+  const result = await Review.find({ bookId: id }).populate('userId');
 
   return result;
 };
